@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package menu.v1;
+
+option go_package = "menu-service/proto/menuv1";
+
+service MenuService {
+  rpc CreateMenuItem(CreateMenuItemRequest) returns (CreateMenuItemResponse);
+  rpc GetMenuItem(GetMenuItemRequest) returns (GetMenuItemResponse);
+  rpc GetMenuItems(GetMenuItemsRequest) returns (GetMenuItemsResponse);
+  rpc UpdateMenuItem(UpdateMenuItemRequest) returns (UpdateMenuItemResponse);
+  rpc DeleteMenuItem(DeleteMenuItemRequest) returns (DeleteMenuItemResponse);
+}
+
+message MenuItem {
+  uint32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message CreateMenuItemRequest {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+}
+
+message CreateMenuItemResponse {
+  MenuItem menu_item = 1;
+}
+
+message GetMenuItemRequest {
+  uint32 id = 1;
+}
+
+message GetMenuItemResponse {
+  MenuItem menu_item = 1;
+}
+
+message GetMenuItemsRequest {}
+
+message GetMenuItemsResponse {
+  repeated MenuItem menu_items = 1;
+}
+
+message UpdateMenuItemRequest {
+  uint32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+}
+
+message UpdateMenuItemResponse {
+  MenuItem menu_item = 1;
+}
+
+message DeleteMenuItemRequest {
+  uint32 id = 1;
+}
+
+message DeleteMenuItemResponse {
+  bool success = 1;
+}

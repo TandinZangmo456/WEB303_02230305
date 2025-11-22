@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package order.v1;
+
+option go_package = "order-service/proto/orderv1";
+
+service OrderService {
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+  rpc GetOrders(GetOrdersRequest) returns (GetOrdersResponse);
+  rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (UpdateOrderStatusResponse);
+}
+
+message OrderItem {
+  uint32 id = 1;
+  uint32 menu_item_id = 2;
+  string menu_item_name = 3;
+  uint32 quantity = 4;
+  double price = 5;
+}
+
+message Order {
+  uint32 id = 1;
+  uint32 user_id = 2;
+  string status = 3;
+  repeated OrderItem order_items = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message OrderItemRequest {
+  uint32 menu_item_id = 1;
+  uint32 quantity = 2;
+}
+
+message CreateOrderRequest {
+  uint32 user_id = 1;
+  repeated OrderItemRequest items = 2;
+}
+
+message CreateOrderResponse {
+  Order order = 1;
+}
+
+message GetOrderRequest {
+  uint32 id = 1;
+}
+
+message GetOrderResponse {
+  Order order = 1;
+}
+
+message GetOrdersRequest {}
+
+message GetOrdersResponse {
+  repeated Order orders = 1;
+}
+
+message UpdateOrderStatusRequest {
+  uint32 id = 1;
+  string status = 2;
+}
+
+message UpdateOrderStatusResponse {
+  Order order = 1;
+}
